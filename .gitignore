@@ -1,0 +1,65 @@
+# Logs
+logs
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+pnpm-debug.log*
+lerna-debug.log*
+
+# Node & Vite
+node_modules/
+dist/
+dist-ssr/
+.vite/
+.out/                 # if used by forge or builder
+
+# Python
+# .venv/
+env/
+venv/
+# __pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.spec               # PyInstaller .spec file
+build/
+dist/                # PyInstaller output
+*.egg-info/
+
+# --- Python backend ---
+backend/.venv/
+backend/__pycache__/
+backend/build/
+backend/dist/
+backend/*.spec
+
+# Local development config
+.local
+.env
+.env.*
+
+# Electron
+*.asar
+
+# --- Electron build ---
+out/
+
+# Editor/IDE files
+# .vscode/
+!.vscode/extensions.json
+.idea/
+.DS_Store
+Thumbs.db
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# OS junk
+ehthumbs.db
+Icon?
+
+# data
+/data/*.db

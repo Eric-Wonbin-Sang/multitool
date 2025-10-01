@@ -1,0 +1,145 @@
+{
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Python Debugger: Current File",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${file}",
+            "console": "integratedTerminal"
+        },
+        {
+            "name": "Attach to Flask (via debugpy)",
+            "type": "debugpy",
+            "request": "attach",
+            "connect": {
+                "host": "localhost",
+                "port": 4567
+            },
+            "justMyCode": true
+        },
+        {
+            "name": "Launch Electron + Python",
+            "type": "node",
+            "request": "launch",
+            "program": "${workspaceFolder}/main.cjs",
+            "runtimeExecutable": "electron",
+            "env": {
+                "FLASK_DEBUG": "1"
+            },
+            "console": "integratedTerminal"
+        },
+        {
+            "name": "Attach to Python Backend",
+            "type": "debugpy",
+            "request": "attach",
+            "connect": {
+                "host": "localhost",
+                "port": 5687
+            },
+            "justMyCode": false
+        },
+        {
+            "name": "Attach to Electron Main",
+            "type": "node",
+            "request": "attach",
+            "port": 9229,
+            "restart": true,
+            "timeout": 10000,
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "cwd": "${workspaceFolder}", // <-- Add this line!
+            "sourceMaps": true // <-- Add this line!
+        },
+        // ------------
+        {
+            "name": "Flask Dev Server",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${workspaceFolder}/backend/server.py", // Adjust to your Flask entry
+            "cwd": "${workspaceFolder}/backend", // Adjust to your Flask folder
+            "console": "integratedTerminal",
+            "env": {
+                "FLASK_DEBUG": "1"
+            }
+        },
+        {
+            "name": "Vite Dev Server",
+            "type": "node",
+            "request": "launch",
+            "runtimeExecutable": "npm",
+            "runtimeArgs": [
+                "run",
+                "dev:vite"
+            ], // Create a vite-only dev script
+            "cwd": "${workspaceFolder}",
+            "console": "integratedTerminal"
+        },
+        // {
+        //     "name": "Electron Main Process",
+        //     "type": "node",
+        //     "request": "launch",
+        //     "cwd": "${workspaceFolder}",
+        //     "runtimeExecutable": "${workspaceFolder}/node_modules/.bin/electron",
+        //     "windows": {
+        //         "runtimeExecutable": "${workspaceFolder}/node_modules/.bin/electron.cmd"
+        //     },
+        //     "args": [
+        //         "."
+        //     ],
+        //     "outputCapture": "std",
+        //     "runtimeArgs": [
+        //         "--trace-warnings"
+        //     ],
+        //     "env": { 
+        //         "FLASK_DEBUG": "1"
+        //     },
+        //     "sourceMaps": true,
+        //     "skipFiles": [
+        //         "<node_internals>/**"
+        //     ]
+        // }
+        {
+            "name": "Electron Main Process",
+            "type": "node",
+            "request": "launch",
+            "cwd": "${workspaceFolder}",
+            "runtimeExecutable": "${workspaceFolder}/node_modules/.bin/electron",
+            "windows": {
+                "runtimeExecutable": "${workspaceFolder}/node_modules/.bin/electron.cmd"
+            },
+            "args": [
+                ".",
+                "--remote-debugging-port=9223"
+            ],
+            "outputCapture": "std"
+        },
+        {
+            "name": "Debug Renderer Process",
+            "type": "chrome",
+            "request": "attach",
+            "port": 9223,
+            "webRoot": "${workspaceFolder}"
+        }
+    ],
+    "compounds": [
+        {
+            "name": "Run Electron + Attach Python",
+            "configurations": [
+                "Launch Electron + Python",
+                "Attach to Python Backend"
+            ]
+        },
+        {
+            "name": "Full Dev (Flask + Vite + Electron)",
+            "configurations": [
+                "Flask Dev Server",
+                "Vite Dev Server",
+                "Electron Main Process",
+                "Debug Renderer Process"
+            ],
+            "stopAll": true
+        }
+    ]
+}

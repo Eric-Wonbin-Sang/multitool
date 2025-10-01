@@ -1,0 +1,21 @@
+
+.screen {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+.container {
+    height: 100vh;
+    width: 100%;
+    padding: 0 !important;
+}
+
+.app_content {
+    flex-grow: 1;
+    overflow: auto;
+
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
